@@ -1,0 +1,18 @@
+spring:
+  kafka:
+    bootstrap-servers: nebrass.servicebus.windows.net:9093
+    client-id: first-producer
+    properties:
+      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://nebrass.servicebus.windows.net/;SharedAccessKeyName=SendReceiveOnly;SharedAccessKey=XXXXXXXXXXXXXXXXXXXXXXXXX=";
+      sasl.mechanism: PLAIN
+      security.protocol: SASL_SSL
+    producer:
+      value-serializer: com.targa.labs.dev.kafkaonazure.ProducerMessageSerializer
+    consumer:
+      group-id: $Default
+      properties:
+        spring.json:
+          use.type.headers: false
+          value.default.type: com.targa.labs.dev.kafkaonazure.SimpleMessage
+topic:
+  name: exchange-topic
